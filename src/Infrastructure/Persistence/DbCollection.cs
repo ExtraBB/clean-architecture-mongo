@@ -4,11 +4,11 @@ using CleanArchitecture.Domain.Common;
 using MongoDB.Driver;
 
 namespace CleanArchitecture.Infrastructure.Persistence;
-public class DbCollection<T> : IDbCollection<T> where T : BaseAuditableEntity
+public class DbRepository<T> : IDbRepository<T> where T : BaseEntity
 {
     private readonly IMongoCollection<T> _collection;
 
-    public DbCollection(IMongoCollection<T> collection)
+    public DbRepository(IMongoCollection<T> collection)
     {
         _collection = collection;
     }

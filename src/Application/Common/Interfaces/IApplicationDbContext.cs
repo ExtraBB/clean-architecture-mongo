@@ -5,5 +5,5 @@ namespace CleanArchitecture.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
-    IDbCollection<TodoItem> TodoItems { get; }
+    IDbRepository<TodoItem> TodoItems { get; }
 }

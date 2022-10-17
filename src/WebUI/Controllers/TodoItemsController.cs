@@ -1,13 +1,13 @@
 ﻿using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
 using CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
+using CleanArchitecture.Application.TodoItems.Commands.GetAllItems;
 using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
 using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
-using Microsoft.AspNetCore.Authorization;
+using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
 
-[Authorize]
 public class TodoItemsController : ApiControllerBase
 {
     [HttpPost]
@@ -48,5 +48,11 @@ public class TodoItemsController : ApiControllerBase
         await Mediator.Send(new DeleteTodoItemCommand(id));
 
         return NoContent();
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<TodoItem>>> GetAll()
+    {
+        return await Mediator.Send(new GetAllItemsCommand());
     }
 }

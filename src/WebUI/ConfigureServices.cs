@@ -6,8 +6,6 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddWebUIServices(this IServiceCollection services)
     {
-        services.AddDatabaseDeveloperPageExceptionFilter();
-
         services.AddHttpContextAccessor();
 
         // Customise default API behaviour

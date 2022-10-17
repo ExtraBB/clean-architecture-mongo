@@ -3,7 +3,7 @@ using CleanArchitecture.Domain.Common;
 
 namespace CleanArchitecture.Application.Common.Interfaces;
 
-public interface IDbCollection<T> where T : BaseAuditableEntity
+public interface IDbRepository<T> where T : BaseEntity
 {
     Task<List<T>> FindAsync(Expression<Func<T, bool>> filter);
 

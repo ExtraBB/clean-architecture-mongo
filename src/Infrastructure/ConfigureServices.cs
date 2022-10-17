@@ -12,6 +12,9 @@ public static class ConfigureServices
     {
         services.Configure<DatabaseConfiguration>(configuration.GetSection("Database"));
 
+        ApplicationDbContext.RegisterClassMaps();
+
+        services.AddSingleton<ApplicationDbContext>();
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddTransient<IDateTime, DateTimeService>();
