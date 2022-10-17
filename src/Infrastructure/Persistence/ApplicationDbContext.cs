@@ -19,11 +19,12 @@ public class ApplicationDbContext : IApplicationDbContext
     public IDbRepository<TodoItem> TodoItems { get; }
 
     public ApplicationDbContext(
-        IOptions<DatabaseConfiguration> databaseConfiguration)
+        IOptions<DatabaseConfiguration> databaseConfiguration,
+        IDateTime _dateTime)
     {
         client = new MongoClient(databaseConfiguration.Value.ConnectionString);
         database = client.GetDatabase(databaseConfiguration.Value.DatabaseName);
-        TodoItems = new DbRepository<TodoItem>(database.GetCollection<TodoItem>(databaseConfiguration.Value.TodoItemsCollectionName));
+        TodoItems = new DbRepository<TodoItem>(database.GetCollection<TodoItem>(databaseConfiguration.Value.TodoItemsCollectionName), _dateTime);
     }
 
     public static void RegisterClassMaps()
@@ -31,7 +32,9 @@ public class ApplicationDbContext : IApplicationDbContext
         BsonClassMap.RegisterClassMap<BaseEntity>(cm =>
         {
             cm.SetIsRootClass(true);
-            cm.MapIdMember(c => c.Id).SetIdGenerator(StringObjectIdGenerator.Instance).SetSerializer(new StringSerializer().WithRepresentation(BsonType.ObjectId));
+            cm.MapIdMember(c => c.Id)
+                .SetIdGenerator(StringObjectIdGenerator.Instance)
+                .SetSerializer(new StringSerializer().WithRepresentation(BsonType.ObjectId));
             cm.MapMember(c => c.CreatedAt);
             cm.MapMember(c => c.UpdatedAt);
             cm.SetIdMember(cm.GetMemberMap(c => c.Id));
