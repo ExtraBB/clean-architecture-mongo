@@ -1,7 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Events;
 using MediatR;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
@@ -25,9 +24,6 @@ public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemComman
         {
             throw new NotFoundException(nameof(TodoItem), request.Id);
         }
-
-
-        entity.AddDomainEvent(new TodoItemDeletedEvent(entity));
 
         await _context.TodoItems.RemoveAsync(entity.Id!);
 

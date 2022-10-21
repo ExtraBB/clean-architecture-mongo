@@ -9,7 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+      <Compile Remove="TodoItems\Queries\**" />
+      <EmbeddedResource Remove="TodoItems\Queries\**" />
+      <None Remove="TodoItems\Queries\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.2" />
@@ -17,10 +22,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Domain\Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="TodoItems\Queries\" />
     </ItemGroup>
 
 </Project>
